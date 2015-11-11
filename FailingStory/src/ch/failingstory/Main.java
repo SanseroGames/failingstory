@@ -3,8 +3,8 @@ package ch.failingstory;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("hello world");
+		StartGame game = new StartGame("The Failing Story");
+		game.run();
 	}
 
 }
