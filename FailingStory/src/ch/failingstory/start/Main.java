@@ -1,4 +1,4 @@
-package ch.failingstory;
+package ch.failingstory.start;
 
 public class Main {
 
@@ -6,5 +6,4 @@ public class Main {
 		StartGame game = new StartGame("The Failing Story");
 		game.run();
 	}
-
 }

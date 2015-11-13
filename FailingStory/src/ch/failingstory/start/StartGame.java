@@ -1,4 +1,4 @@
-package ch.failingstory;
+package ch.failingstory.start;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -21,7 +21,6 @@ public class StartGame extends StateBasedGame{
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 	
