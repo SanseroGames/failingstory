@@ -6,11 +6,15 @@ public interface IMap {
 	 * Länge der Karte in IMapCell
 	 * @return 
 	 */
-	public int getLenght();
+	int getHeight();
 	
 	/**
 	 * Breite der Karte in IMapCell
 	 * @return
 	 */
-	public int getWidth();
+	int getWidth();
+	
+	IMapCellDefinition getCellAt(int x, int y);
+	
+	void setCellDefintion(int x, int y, IMapCellDefinition definition);
 }
