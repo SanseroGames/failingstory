@@ -15,5 +15,5 @@ public abstract class Unit implements IUnit {
 	boolean Finished;
 	
 	int HP;
-	
+
 }
