@@ -1,6 +1,6 @@
 package ch.failingstory;
 
-public interface IMapCellDefinition {
+public interface ICellDefinition {
 	
 	String getDefinitionName();
 	
