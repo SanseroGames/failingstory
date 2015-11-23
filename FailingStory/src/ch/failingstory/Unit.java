@@ -48,7 +48,7 @@ public abstract class Unit implements IUnit {
 
 	@Override
 	public boolean hasFinished() {
-		// does the unit has finished?
+		// has the unit finished?
 		return finished;
 	}
 
