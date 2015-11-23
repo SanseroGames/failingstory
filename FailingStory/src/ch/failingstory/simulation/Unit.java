@@ -1,4 +1,10 @@
-package ch.failingstory;
+package ch.failingstory.simulation;
+
+import org.newdawn.slick.Animation;
+
+import ch.failingstory.IFraction;
+import ch.failingstory.IUnit;
+import ch.failingstory.UnitStats;
 
 public abstract class Unit implements IUnit {
 	
