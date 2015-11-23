@@ -8,96 +8,86 @@ import ch.failingstory.UnitStats;
 
 public abstract class Unit implements IUnit {
 	
-	String name;
+	private String name;
+	private IFraction fraction;
+	private int x;
+	private int y;
+	private UnitStats stats;
+	private int hp;
+	private int walkrange;
+	private int attackrange;
+	private Animation animation;
+	private boolean finished;
 	
-
+	/** private gets the name of the unit */
 	@Override
 	public String getName() {
-		/** gets the name of the unit */
 		return name;
 	}
-	
-	IFraction fraction;
 
+	/** get the fraction of the unit */
 	@Override
 	public IFraction getFraction() {
-		/** get the fraction of the unit */
 		return fraction;
 	}
-
-	int x;
 	
+	/** get (coordinate) x of the unit */
 	@Override
 	public int getX() {
-		/** get (coordinate) x of the unit */
 		return x;
 	}
-	
-	int y;
 
+	/** get (coordinate) y of the unit */
 	@Override
 	public int getY() {
-		/** get (coordinate) y of the unit */
 		return y;
 	}
 	
+	/** set the position of the unit */
 	@Override
 	public void setPosition(int x, int y) {
-		/** set the position of the unit */
 	}
-
-	UnitStats stats;
 	
+	/** get the statistics of the unit */
 	@Override
 	public UnitStats getStats() {
-		/** get the statistics of the unit */
 		return stats;
 	}
-
-	int hp;
 	
+	/** get the health points of the unit */
 	@Override
 	public int getHP() {
-		/** get the health points of the unit */
 		return hp;
 	}
 	
+	
+	/** change the health points of the unit by a specified value */
 	@Override
 	public void changeHPBy(int value) {
-		/** change the health points of the unit by a specified value */
 		hp += value;
-		
 	}
-
-	int walkrange;
 	
+	/** get the walk range of the unit */
 	@Override
 	public int getWalkRange() {
-		/** get the walk range of the unit */
 		return walkrange;
 	}
-
-	int attackrange;
 	
+	/** get the attack range of the unit */
 	@Override
 	public int getAttackRange() {
-		/** get the attack range of the unit */
 		return attackrange;
 	}
-	
-	boolean finished;
 
+	/** has the unit finished (the turn)? */
 	@Override
 	public boolean hasFinished() {
-		/** has the unit finished (the turn)? */
 		return finished;
 	}
-
-	Animation animation;
 	
+	/** get the animation of the unit */
 	@Override
 	public Animation getAnimation() {
-		/** get the animation of the unit */
 		return animation;
 	}
 
