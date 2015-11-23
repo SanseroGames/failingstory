@@ -29,14 +29,28 @@ public class MapManager {
 		}
 	}
 
+	/**
+	 * Returns the Map 
+	 * @return The Map
+	 */
 	public TiledMap getMap() {
 		return map;
 	}
 
+	/**
+	 * ArrayList containing every Unit on the map
+	 * @return ArrayList containig every Unit
+	 */
 	public ArrayList<IUnit> getUnits() {
 		return units;
 	}
 	
+	/**
+	 * Returns the Celldefinition at the specified Position
+	 * @param x - The X-Coordinate starting at 0
+	 * @param y - The Y-Coordinate starting at 0
+	 * @return The CellDefinition
+	 */
 	public ICellDefinition getCellAt(int x, int y){
 		return cells[map.getWidth() * y + x];
 	}
