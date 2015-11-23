@@ -65,7 +65,6 @@ public abstract class Unit implements IUnit {
 	@Override
 	public void changeHPBy(int value) {
 		hp += value;
-		
 	}
 	
 	/** get the walk range of the unit */
