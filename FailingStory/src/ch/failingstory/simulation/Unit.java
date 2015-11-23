@@ -10,9 +10,10 @@ public abstract class Unit implements IUnit {
 	
 	String name;
 	
+
 	@Override
 	public String getName() {
-		// TODO gets the name of the unit
+		/** gets the name of the unit */
 		return name;
 	}
 	
@@ -20,7 +21,7 @@ public abstract class Unit implements IUnit {
 
 	@Override
 	public IFraction getFraction() {
-		// get the fraction of the unit
+		/** get the fraction of the unit */
 		return fraction;
 	}
 
@@ -28,7 +29,7 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public int getX() {
-		// get (coordinate) x of the unit
+		/** get (coordinate) x of the unit */
 		return x;
 	}
 	
@@ -36,20 +37,20 @@ public abstract class Unit implements IUnit {
 
 	@Override
 	public int getY() {
-		// get (coordinate) y of the unit
+		/** get (coordinate) y of the unit */
 		return y;
 	}
 	
 	@Override
 	public void setPosition(int x, int y) {
-		// set the position of the unit
+		/** set the position of the unit */
 	}
 
 	UnitStats stats;
 	
 	@Override
 	public UnitStats getStats() {
-		// get the statistics of the unit
+		/** get the statistics of the unit */
 		return stats;
 	}
 
@@ -57,13 +58,13 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public int getHP() {
-		// get the health points of the unit
+		/** get the health points of the unit */
 		return hp;
 	}
 	
 	@Override
 	public void changeHPBy(int value) {
-		// change the health points of the unit by a specified value
+		/** change the health points of the unit by a specified value */
 		hp += value;
 		
 	}
@@ -72,7 +73,7 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public int getWalkRange() {
-		// get the walk range of the unit
+		/** get the walk range of the unit */
 		return walkrange;
 	}
 
@@ -80,7 +81,7 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public int getAttackRange() {
-		// get the attack range of the unit
+		/** get the attack range of the unit */
 		return attackrange;
 	}
 	
@@ -88,7 +89,7 @@ public abstract class Unit implements IUnit {
 
 	@Override
 	public boolean hasFinished() {
-		// has the unit finished (the turn)?
+		/** has the unit finished (the turn)? */
 		return finished;
 	}
 
@@ -96,7 +97,7 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public Animation getAnimation() {
-		// get the animation of the unit
+		/** get the animation of the unit */
 		return animation;
 	}
 
