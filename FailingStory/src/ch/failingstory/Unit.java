@@ -2,18 +2,66 @@ package ch.failingstory;
 
 public abstract class Unit implements IUnit {
 	
-	String Name;
+	String name;
 	
-	UnitStats Stats;
+	UnitStats stats;
 	
-	int WalkRange;
+	int walkrange;
 	
-	int AttackRange;
+	int attackrange;
 	
-	IFraction Fraction;
+	IFraction fraction;
 	
-	boolean Finished;
+	boolean finished;
 	
-	int HP;
+	int hp;
+
+	@Override
+	public String getName() {
+		// get the name of the unit
+		return name;
+	}
+
+	@Override
+	public UnitStats getStats() {
+		// get the stats of the unit
+		return stats;
+	}
+
+	@Override
+	public int getWalkRange() {
+		// get the walk range of the unit
+		return walkrange;
+	}
+
+	@Override
+	public int getAttackRange() {
+		// get the attack range of the unit
+		return attackrange;
+	}
+
+	@Override
+	public IFraction getFraction() {
+		// get the fraction of the unit
+		return fraction;
+	}
+
+	@Override
+	public boolean hasFinished() {
+		// does the unit has finished?
+		return finished;
+	}
+
+	@Override
+	public int getHP() {
+		// get the health points of the unit
+		return hp;
+	}
+
+	@Override
+	public void changeHPBy(int value) {
+		// change health points by a specified value
+		hp = hp + value;
+	}
 
 }
