@@ -30,7 +30,7 @@ public class MapManager {
 	}
 
 	/**
-	 * Returns the Map 
+	 * Returns the Map
 	 * @return The Map
 	 */
 	public TiledMap getMap() {
