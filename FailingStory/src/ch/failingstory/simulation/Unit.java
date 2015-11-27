@@ -75,7 +75,13 @@ public abstract class Unit implements IUnit {
 	
 	/** get the attack range of the unit */
 	@Override
-	public int getAttackRange() {
+	public int getMinAttackRange() {
+		return attackrange;
+	}
+	
+	/** get the attack range of the unit */
+	@Override
+	public int getMaxAttackRange() {
 		return attackrange;
 	}
 
