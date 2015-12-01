@@ -1,51 +1,43 @@
 package ch.failingstory.graphic;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
 
 import ch.failingstory.IUnit;
 import ch.failingstory.MapManager;
 
-public class MapScreen extends BasicGameState{
+public class MapScreen {
 
 	private MapManager manager;
-	private int screenID;
-	
-	public MapScreen(int id,MapManager manager){
+	private Animation cursor;
+
+	public MapScreen(MapManager manager) throws SlickException {
 		this.manager = manager;
-		screenID = id;
-	}
-	
-	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		// TODO Auto-generated method stub
+		cursor = new Animation(new Image[] { new Image(".\\res\\cursor1.png"), new Image(".\\res\\cursor2.png") },
+				1000);
 	}
 
-	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
-		manager.getMap().render(0,0);
-		
-		int texWidth = manager.getMap().getTileWidth();
-		int texHeight = manager.getMap().getTileHeight();
-		
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		int cellWidth = manager.getMap().getTileWidth();
+		int cellHeight = manager.getMap().getTileHeight();
+
+		// Draw Map
+		manager.getMap().render(0, 0);
+
+		// Draw Units
 		for (IUnit unit : manager.getUnits()) {
-			if(unit!=null)
-				unit.getAnimation().draw(((int)unit.getX()) * texWidth, ((int)unit.getY()) * texHeight,texWidth,texHeight);
+			if (unit != null)
+				unit.getAnimation().draw(((int) unit.getX()) * cellWidth, ((int) unit.getY()) * cellHeight, cellWidth,
+						cellHeight);
 		}
-	}
-
-	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return screenID;
+		int curWidth = cellWidth + (cellWidth / 2);
+		int curHeight = cellHeight + (cellHeight / 2);
+		int curOffsetX = (curWidth - cellWidth) / 2;
+		int curOffsetY = (curHeight - cellHeight) / 2;
+		cursor.draw((manager.getCursorX() * cellWidth) - curOffsetX, (manager.getCursorY() * cellHeight) - curOffsetY,
+				curWidth, curHeight);
 	}
 }

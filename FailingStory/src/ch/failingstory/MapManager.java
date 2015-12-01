@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.tiled.TiledMap;
 
-import ch.failingstory.simulation.Unit;
+import ch.failingstory.simulation.*;
 
 public class MapManager {
-
+	
 	private TiledMap map;
 	private ArrayList<IUnit> units;
 	private ICellDefinition[] cells;
+	private int cursorX;
+	private int cursorY;
 
 	public MapManager(String path) {
 		try{
@@ -21,16 +23,18 @@ public class MapManager {
 			cells = new ICellDefinition[map.getWidth() * map.getHeight()];
 			//lade Starteinheiten
 			units = new ArrayList<IUnit>();
-//			units.add(new Unit(5,5));
-//			units.add(new Unit(16,4));
-//			units.add(new Unit(20,16));
+			units.add(new TestUnit(5,5,"Test1"));
+			units.add(new TestUnit(16,4,"Wurst"));
+			units.add(new TestUnit(20,16,"Spassvogel"));
+			cursorX = map.getWidth() / 2;
+			cursorY = map.getHeight() / 2;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Returns the Map
+	 * Returns the Map 
 	 * @return The Map
 	 */
 	public TiledMap getMap() {
@@ -53,5 +57,41 @@ public class MapManager {
 	 */
 	public ICellDefinition getCellAt(int x, int y){
 		return cells[map.getWidth() * y + x];
+	}
+	
+	public IUnit getUnitAt(int x, int y){
+		for(IUnit unit:units){
+			if(unit.getX() == x && unit.getY() == y)
+				return unit;
+		}
+		return null;
+	}
+	
+	public int getCursorX(){
+		return cursorX;
+	}
+	
+	public void setCursorX(int value){
+		if(value < 0){
+			cursorX = 0;
+		}else if(value > map.getWidth() - 1){
+			cursorX = map.getWidth() - 1;
+		}else{
+			cursorX = value;
+		}
+	}
+	
+	public int getCursorY(){
+		return cursorY;
+	}
+	
+	public void setCursorY(int value){
+		if(value < 0){
+			cursorY = 0;
+		}else if(value > map.getHeight() - 1){
+			cursorY = map.getHeight() - 1;
+		}else{
+			cursorY = value;
+		}
 	}
 }

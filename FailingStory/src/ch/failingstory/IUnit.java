@@ -33,7 +33,7 @@ public interface IUnit {
 	 * @param x - The new X-Coordinate
 	 * @param y - The new Y-Coordinate
 	 */
-	void setPosition(int x, int y);
+//	void setPosition(int x, int y);
 
 	/**
 	 * The Stats of the Unit
@@ -51,7 +51,7 @@ public interface IUnit {
 	 * Changes the Value of the Unit by the specified value. This might be negative.
 	 * @param value The value to add to the HP of the Unit
 	 */
-	void changeHPBy(int value);
+//	void changeHPBy(int value);
 
 	/**
 	 * Returns how far the Unit can Walk in MapCells
