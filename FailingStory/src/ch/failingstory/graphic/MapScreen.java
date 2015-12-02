@@ -16,8 +16,7 @@ public class MapScreen {
 
 	public MapScreen(MapManager manager) throws SlickException {
 		this.manager = manager;
-		cursor = new Animation(new Image[] { new Image(".\\res\\cursor1.png"), new Image(".\\res\\cursor2.png") },
-				1000);
+		cursor = new Animation(new Image[] { new Image(".\\res\\cursor1.png"), new Image(".\\res\\cursor2.png")}, new int[] {1000,400});
 	}
 
 	public void render(GameContainer container, Graphics g) throws SlickException {

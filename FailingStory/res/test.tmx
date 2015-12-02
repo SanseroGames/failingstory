@@ -3,9 +3,15 @@
  <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="1">
   <image source="test.jpg" width="32" height="32"/>
  </tileset>
+ <tileset firstgid="2" name="grass" tilewidth="32" tileheight="32" tilecount="1">
+  <image source="grass.jpg" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="water_tiles" tilewidth="32" tileheight="32" tilecount="16">
+  <image source="water_tiles.png" width="128" height="128"/>
+ </tileset>
  <layer name="Kachelebene 1" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC8WTSQ6AMAwDw/8/zRVFXgHBoUJQ25Ok9JiZ44c14DmX961DnpY3IgPV4+pGGQmD+R2D8VS/rhfXw51zdDPZPbGMtg7kU2w1Y8dVDDdnplU6xmDfUsbO375dQ/v/Jncj0T/poZl5y0B9J1lqxoiRZDNN2gOrMWHsWhsf0jYcta/mihhqH7HfYCiNymfelOHOImGwmTl/whigT/8dl9fcTZbv6v9qnTWKeATECQAA
+   H4sIAAAAAAAAC+2SSw7AIAgF1X7of9H7H7Y2YUGMUaHSpomLWQmOPHHGGNcQY5Vqv3Z0nh4ZlBzgmZD5ZYdF6JyxWUscq2dD9kjd/YYRz5fIrDX2D8i9UNlBszwwp1PJQbMM88z9gwY2AWdHpLUpP9chyYvbI6l/0pPLRTp3eHfuX2ruWIlfw9f4JxdSfOzyxAkAAA==
   </data>
  </layer>
 </map>
