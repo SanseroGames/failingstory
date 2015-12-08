@@ -9,4 +9,6 @@ public interface ICellDefinition {
 	int getMoveCost();
 	
 	boolean isTraversable();
+	
+	
 }

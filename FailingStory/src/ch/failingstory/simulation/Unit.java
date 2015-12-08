@@ -2,99 +2,87 @@ package ch.failingstory.simulation;
 
 import org.newdawn.slick.Animation;
 
-import ch.failingstory.IFraction;
-import ch.failingstory.IUnit;
-import ch.failingstory.UnitStats;
+import ch.failingstory.*;
 
 public abstract class Unit implements IUnit {
-	
-	private String name;
+
 	private IFraction fraction;
 	private int x;
 	private int y;
 	private UnitStats stats;
 	private int hp;
-	private int walkrange;
-	private int attackrange;
-	private Animation animation;
+	private int walkRange;
+	private int minAttackRange;
+	private int maxAttackRange;
 	private boolean finished;
-	
-	/** private gets the name of the unit */
-	@Override
-	public String getName() {
-		return name;
-	}
 
-	/** get the fraction of the unit */
-	@Override
-	public IFraction getFraction() {
-		return fraction;
+	//Temp Constructor for Debunging
+	public Unit(int walk, int max, int min){
+		hp = 10;
+		walkRange = walk;
+		minAttackRange = min;
+		maxAttackRange = max;
 	}
 	
-	/** get (coordinate) x of the unit */
 	@Override
-	public int getX() {
-		return x;
-	}
+	public abstract String getName();
 
-	/** get (coordinate) y of the unit */
 	@Override
-	public int getY() {
-		return y;
-	}
+	public abstract Animation getAnimation();
 	
-	/** set the position of the unit */
-	@Override
-	public void setPosition(int x, int y) {
-	}
-	
-	/** get the statistics of the unit */
 	@Override
 	public UnitStats getStats() {
 		return stats;
 	}
-	
-	/** get the health points of the unit */
-	@Override
-	public int getHP() {
-		return hp;
-	}
-	
-	
-	/** change the health points of the unit by a specified value */
-	@Override
-	public void changeHPBy(int value) {
-		hp += value;
-	}
-	
-	/** get the walk range of the unit */
+
 	@Override
 	public int getWalkRange() {
-		return walkrange;
-	}
-	
-	/** get the attack range of the unit */
-	@Override
-	public int getMinAttackRange() {
-		return attackrange;
-	}
-	
-	/** get the attack range of the unit */
-	@Override
-	public int getMaxAttackRange() {
-		return attackrange;
+		return walkRange;
 	}
 
-	/** has the unit finished (the turn)? */
+	@Override
+	public int getMaxAttackRange() {
+		return maxAttackRange;
+	}
+	
+	@Override
+	public int getMinAttackRange() {
+		return minAttackRange;
+	}
+
+	@Override
+	public IFraction getFraction() {
+		return fraction;
+	}
+
 	@Override
 	public boolean hasFinished() {
 		return finished;
 	}
-	
-	/** get the animation of the unit */
+
 	@Override
-	public Animation getAnimation() {
-		return animation;
+	public int getHP() {
+		return hp;
 	}
 
+	@Override
+	public int getX() {
+		return x;
+	}
+	
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	//Setter Methods
+	
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void changeHPBy(int value) {
+		hp += value;
+	}
 }

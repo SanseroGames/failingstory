@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="1">
-  <image source="test.jpg" width="32" height="32"/>
+ <tileset firstgid="1" name="water_tiles" tilewidth="32" tileheight="32" tilecount="16">
+  <image source="water_tiles.png" width="128" height="128"/>
  </tileset>
- <layer name="Kachelebene 1" width="25" height="25">
+ <layer name="Kachelebene 1" width="25" height="25" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC8WTSQ6AMAwDw/8/zRVFXgHBASFo4ond9piZ44dnwHsu37sO9bS8ERpoHjc30kgYrN8xGE/5dV6chzv76DLZnphGOodiKLbKOKljDJdzw3Dniv1LGVt/9+0Z2vOb3I2k/omHJvOWgXwnWipjxEi0WU3qgc2YMPasTR+qbThqXeWKGGodsd9gqBqlz3pThtuLhMEyc/0JY0B9enacXnM3mb6b/6vnBHb7YSPECQAA
+   H4sIAAAAAAAAC81VSQ6EMAwra5kpEvP/1w5IRDKW05blwCFSRZs4iZ2whBCWF1izWgfnlqy7GBN9P6ul/TysNpL9LuBsMXvwbQjvS2Zvz9ZlsRLVoYxri9TTGg4UJ3hn+fTQuwkwPR449wHymxwOFFeMYW88f8tv3nOODo8jvPEwRsffOE5Ql8dNhLOHUdLJExhmc9CaehLD6lH83MGYw1GLqparGKaLSO9zOuMZmgoY6NuG4xx5Oo30jbXnYag5Un2p3THKrxcYZ3cr9k3d392tGN/DyOFuWEpnuGdt31h+tRglDpBHb245l1Lveb8PFJ/vVS653qv9jv+03Ix6mooifk5v9kZheJpKwc8De8Oc52anhnfWF+eG8f9naCYexAkAAA==
   </data>
  </layer>
 </map>
