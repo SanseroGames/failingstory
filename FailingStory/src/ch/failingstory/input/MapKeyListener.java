@@ -3,13 +3,24 @@ package ch.failingstory.input;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
-public class MapKeyListener implements KeyListener {
+public class MapKeyListener implements KeyListener, IInputSet {
 
 	private boolean left;
 	private boolean right;
 	private boolean up;
 	private boolean down;
-	private boolean action;
+	private boolean interact;
+	private boolean back;
+	
+	private boolean inputAccepted;
+	
+	public MapKeyListener(){
+		this(true);
+	}
+	
+	public MapKeyListener(boolean activateInput){
+		inputAccepted = activateInput;
+	}
 
 	@Override
 	public void setInput(Input input) {
@@ -17,7 +28,7 @@ public class MapKeyListener implements KeyListener {
 
 	@Override
 	public boolean isAcceptingInput() {
-		return true;
+		return inputAccepted;
 	}
 
 	@Override
@@ -43,8 +54,10 @@ public class MapKeyListener implements KeyListener {
 			down = true;
 		}
 		if(key == Input.KEY_ENTER){
-			action = true;
+			interact = true;
 		}
+		if(key == Input.KEY_ESCAPE)
+			back = true;
 	}
 
 	@Override
@@ -62,28 +75,40 @@ public class MapKeyListener implements KeyListener {
 			down = false;
 		}
 		if(key == Input.KEY_ENTER){
-			action = false;
+			interact = false;
 		}
+		if(key == Input.KEY_ESCAPE)
+			back = false;
 	}
-	
-	public boolean isLeftKeyPressed(){
+
+	@Override
+	public boolean isLeftPressed() {
 		return left;
 	}
-	
-	public boolean isRightKeyPressed(){
+
+	@Override
+	public boolean isRightPressed() {
 		return right;
 	}
-	
-	public boolean isUpKeyPressed(){
+
+	@Override
+	public boolean isUpPressed() {
 		return up;
 	}
-	
-	public boolean isDownKeyPressed(){
+
+	@Override
+	public boolean isDownPressed() {
 		return down;
 	}
+
+	@Override
+	public boolean isInteractPressed(){
+		return interact;
+	}
 	
-	public boolean isActionPressed(){
-		return action;
+	@Override
+	public boolean isBackPressed() {
+		return back;
 	}
 
 }

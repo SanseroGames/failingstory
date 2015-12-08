@@ -8,19 +8,15 @@ public class InputComponent {
 	private MapKeyListener keyboard;
 	private MapControllerListener controller;
 	
-	private boolean lastLeft;
-	private boolean left;
-	private boolean lastRight;
-	private boolean right;
-	private boolean lastUp;
-	private boolean up;
-	private boolean lastDown;
-	private boolean down;
+	private RepeatedTrigger left = new RepeatedTrigger();
+	private RepeatedTrigger right = new RepeatedTrigger();
+	private RepeatedTrigger up = new RepeatedTrigger();
+	private RepeatedTrigger down = new RepeatedTrigger();
 	
-	private boolean lastAction;
-	private boolean action;
-	private boolean lastBack;
-	private boolean back;
+	private InputTrigger interact = new InputTrigger();
+	private InputTrigger back = new InputTrigger();
+//	private InputTrigger zoomIn = new InputTrigger();
+//	private InputTrigger zoomOut = new InputTrigger();
 	
 	public InputComponent(GameContainer container){
 		mouse = new MapMouseListener();
@@ -32,42 +28,37 @@ public class InputComponent {
 	}
 	
 	public void update(GameContainer container, int delta){
-		left = keyboard.isLeftKeyPressed();
-		right = keyboard.isRightKeyPressed();
-		up = keyboard.isUpKeyPressed();
-		down = keyboard.isDownKeyPressed();
+		left.setState(keyboard.isLeftPressed(), delta);
+		right.setState(keyboard.isRightPressed(), delta);
+		up.setState(keyboard.isUpPressed(), delta);
+		down.setState(keyboard.isDownPressed(), delta);
 		
-		boolean t = keyboard.isActionPressed();
-		if (t != lastAction){
-			action = t;
-		}
-		lastAction = t;
+		interact.setState(keyboard.isInteractPressed());
+		back.setState(keyboard.isBackPressed());
 	}
 	
 	public boolean isLeftPressed(){
-		return left;
+		return left.getState();
 	}
 	
 	public boolean isRightPressed(){
-		return right;
+		return right.getState();
 	}
 	
 	public boolean isUpPressed(){
-		return up;
+		return up.getState();
 	}
 	
 	public boolean isDownPressed(){
-		return down;
+		return down.getState();
 	}
 	
-	public boolean isActionPressed(){
-		boolean t = action;
-		action = false;
-		return t;
+	public boolean isInteractPressed(){
+		return interact.getState();
 	}
 	
 	public boolean isBackPressed(){
-		return back;
+		return back.getState();
 	}
 	
 	public boolean isMenuPressed(){

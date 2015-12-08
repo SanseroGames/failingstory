@@ -6,10 +6,24 @@ import ch.failingstory.*;
 
 public abstract class Unit implements IUnit {
 
+	private IFraction fraction;
 	private int x;
 	private int y;
+	private UnitStats stats;
 	private int hp;
+	private int walkRange;
+	private int minAttackRange;
+	private int maxAttackRange;
+	private boolean finished;
 
+	//Temp Constructor for Debunging
+	public Unit(int walk, int max, int min){
+		hp = 10;
+		walkRange = walk;
+		minAttackRange = min;
+		maxAttackRange = max;
+	}
+	
 	@Override
 	public abstract String getName();
 
@@ -18,32 +32,32 @@ public abstract class Unit implements IUnit {
 	
 	@Override
 	public UnitStats getStats() {
-		return new UnitStats();
+		return stats;
 	}
 
 	@Override
 	public int getWalkRange() {
-		return 4;
+		return walkRange;
 	}
 
 	@Override
 	public int getMaxAttackRange() {
-		return 5;
+		return maxAttackRange;
 	}
 	
 	@Override
 	public int getMinAttackRange() {
-		return 2;
+		return minAttackRange;
 	}
 
 	@Override
 	public IFraction getFraction() {
-		return null;
+		return fraction;
 	}
 
 	@Override
 	public boolean hasFinished() {
-		return false;
+		return finished;
 	}
 
 	@Override

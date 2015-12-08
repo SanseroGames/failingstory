@@ -8,7 +8,10 @@ public class TestUnit extends Unit{
 	private Animation ani;
 	private String nam;
 	
-	public TestUnit(int x, int y, String name){
+	public TestUnit(int x, int y, String name, int walk, int max, int min){
+		//Debuging constructor Call
+		super(walk,max,min);
+		
 		setPosition(x,y);
 		nam = name;
 		try {

@@ -2,43 +2,53 @@ package ch.failingstory.simulation;
 
 import org.newdawn.slick.GameContainer;
 
+import ch.failingstory.IGameComponent;
 import ch.failingstory.IUnit;
 import ch.failingstory.MapManager;
 import ch.failingstory.input.InputComponent;
 
-public class SimulationComponent {
-	
+public class SimulationComponent implements IGameComponent{
+
 	private InputComponent input;
 	private MapManager manager;
-	private int stamp;
-	
-	public SimulationComponent(InputComponent input, MapManager manager){
+
+	public SimulationComponent(InputComponent input, MapManager manager) {
 		this.input = input;
 		this.manager = manager;
 	}
-	
-	public void update(GameContainer container, int delta){
-		stamp += delta;
-		if(input.isLeftPressed() && stamp > 100){
-			manager.setCursorX(manager.getCursorX()-1);
-			stamp = 0;
+
+	@Override
+	public void update(GameContainer container, int delta) {
+		if (input.isLeftPressed())
+			manager.changeCursorXby(-1);
+
+		if (input.isRightPressed())
+			manager.changeCursorXby(1);
+
+		if (input.isUpPressed())
+			manager.changeCursorYby(-1);
+
+		if (input.isDownPressed())
+			manager.changeCursorYby(1);
+
+		if (input.isInteractPressed()) {
+			Unit u = (Unit) manager.getUnitAt(manager.getCursorX(), manager.getCursorY());
+			if (u == manager.getSelectedUnit() && u != null) {
+					manager.setSelectedUnit(null);
+			} else if(u != null)
+				manager.setSelectedUnit(u);
+			else{
+				if(manager.getSelectedUnit() != null && Math.abs(manager.getCursorX()-manager.getSelectedUnit().getX())+Math.abs(manager.getCursorY()-manager.getSelectedUnit().getY()) <= manager.getSelectedUnit().getWalkRange()){
+					manager.getSelectedUnit().setPosition(manager.getCursorX(), manager.getCursorY());
+					manager.setSelectedUnit(null);
+				}
+			}
+			
+			System.out.println("Unit selected: " + (manager.getSelectedUnit() != null ? manager.getSelectedUnit().getName() : "null"));
 		}
-		if(input.isUpPressed() && stamp > 100){
-			manager.setCursorY(manager.getCursorY()-1);
-			stamp = 0;
-		}
-		if(input.isDownPressed() && stamp > 100){
-			manager.setCursorY(manager.getCursorY()+1);
-			stamp = 0;
-		}
-		if(input.isRightPressed() && stamp > 100){
-			manager.setCursorX(manager.getCursorX()+1);
-			stamp = 0;
-		}
-		if (input.isActionPressed()) {
-			IUnit u = manager.getUnitAt(manager.getCursorX(), manager.getCursorY());
-			System.out.println("Clicked: " + manager.getCursorX() + "/" + manager.getCursorY() + ", there's Unit: "
-					+ (u != null ? u.getName() : "null"));
+		
+		if(input.isBackPressed()){
+			manager.setSelectedUnit(null);
 		}
 	}
 }

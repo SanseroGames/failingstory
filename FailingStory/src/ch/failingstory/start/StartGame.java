@@ -24,6 +24,7 @@ public class StartGame extends BasicGame {
 		container = new AppGameContainer(this);
 		container.setDisplayMode(25*32, 25*32, false);
 		container.setTargetFrameRate(60);
+		container.setIcon(".\\res\\icon.png");
 	}
 
 	@Override
