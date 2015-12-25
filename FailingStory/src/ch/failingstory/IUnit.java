@@ -2,6 +2,11 @@ package ch.failingstory;
 
 import org.newdawn.slick.Animation;
 
+/**
+ * Interface that represents a Unit
+ * @author SanseroGames
+ *
+ */
 public interface IUnit {
 
 	/**

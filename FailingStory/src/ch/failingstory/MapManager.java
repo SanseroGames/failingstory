@@ -1,32 +1,35 @@
 package ch.failingstory;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ch.failingstory.data.TestMap;
 import ch.failingstory.simulation.*;
 
+/**
+ * Class that manages the data for maps.
+ * @author SanseroGames
+ *
+ */
 public class MapManager {
 	
 	private GameMap map;
-	private ArrayList<IUnit> units;
 	private Unit selectedUnit;
-	private ICellDefinition[] cells;
 	private int cursorX;
 	private int cursorY;
+	private ArrayList<Index2> cursorPath;
 
 	public MapManager(String path) throws SlickException{
 		//lade Map-Pfad
 		String mapPath = ".\\res\\test.tmx";
-		map = new GameMap(mapPath);
-		//Lade Zellendetails
-		cells = new ICellDefinition[map.getWidth() * map.getHeight()];
+		map = new TestMap(mapPath);
 		//lade Starteinheiten
-		units = new ArrayList<IUnit>();
-		units.add(new TestUnit(5,5,"Test1",3,1,0));
-		units.add(new TestUnit(16,4,"Wurst",6,3,3));
-		units.add(new TestUnit(20,16,"Spassvogel",12,5,2));
+		map.addUnit(new TestUnit(5,5,"Test1",3,1,0));
+		map.addUnit(new TestUnit(16,4,"Wurst",6,3,3));
+		map.addUnit(new TestUnit(20,16,"Spassvogel",12,5,2));
 		cursorX = map.getWidth() / 2;
 		cursorY = map.getHeight() / 2;
 	}
@@ -40,11 +43,11 @@ public class MapManager {
 	}
 
 	/**
-	 * ArrayList containing every Unit on the map
-	 * @return ArrayList containig every Unit
+	 * Array containing every Unit on the map
+	 * @return Array containig every Unit
 	 */
-	public ArrayList<IUnit> getUnits() {
-		return units;
+	public List<IUnit> getUnits() {
+		return map.getUnits();
 	}
 	
 	/**
@@ -53,12 +56,12 @@ public class MapManager {
 	 * @param y - The Y-Coordinate starting at 0
 	 * @return The CellDefinition
 	 */
-	public ICellDefinition getCellAt(int x, int y){
-		return cells[map.getWidth() * y + x];
-	}
+//	public ICellDefinition getCellAt(int x, int y){
+//		return cells[map.getWidth() * y + x];
+//	}
 	
 	public IUnit getUnitAt(int x, int y){
-		for(IUnit unit:units){
+		for(IUnit unit:map.getUnits()){
 			if(unit.getX() == x && unit.getY() == y)
 				return unit;
 		}
@@ -121,5 +124,13 @@ public class MapManager {
 	
 	public Unit getSelectedUnit(){
 		return selectedUnit;
+	}
+
+	public ArrayList<Index2> getCursorPath() {
+		return cursorPath;
+	}
+
+	public void setCursorPath(ArrayList<Index2> cursorPath) {
+		this.cursorPath = cursorPath;
 	}
 }

@@ -13,6 +13,7 @@ public class MapKeyListener implements KeyListener, IInputSet {
 	private boolean back;
 	
 	private boolean inputAccepted;
+	private boolean test;
 	
 	public MapKeyListener(){
 		this(true);
@@ -58,6 +59,9 @@ public class MapKeyListener implements KeyListener, IInputSet {
 		}
 		if(key == Input.KEY_ESCAPE)
 			back = true;
+		if(key == Input.KEY_T)
+			test = true;
+		
 	}
 
 	@Override
@@ -79,6 +83,8 @@ public class MapKeyListener implements KeyListener, IInputSet {
 		}
 		if(key == Input.KEY_ESCAPE)
 			back = false;
+		if(key == Input.KEY_T)
+			test = false;
 	}
 
 	@Override
@@ -111,4 +117,7 @@ public class MapKeyListener implements KeyListener, IInputSet {
 		return back;
 	}
 
+	public boolean isTestPressed(){
+		return test;
+	}
 }
