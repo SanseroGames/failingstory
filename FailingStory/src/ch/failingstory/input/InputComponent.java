@@ -2,7 +2,9 @@ package ch.failingstory.input;
 
 import org.newdawn.slick.GameContainer;
 
-public class InputComponent {
+import ch.failingstory.GameComponent;
+
+public class InputComponent extends GameComponent{
 	
 	private MapMouseListener mouse;
 	private MapKeyListener keyboard;

@@ -7,13 +7,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.util.pathfinding.Mover;
 
+import ch.failingstory.DrawableComponent;
 import ch.failingstory.Index2;
 import ch.failingstory.MapManager;
 import ch.failingstory.ResourceManager;
 
-public class CursorRenderer implements Mover{
+public class CursorRenderer extends DrawableComponent{
 	
 	private MapManager manager;
 	private Animation cursor;
@@ -27,7 +27,8 @@ public class CursorRenderer implements Mover{
 		arrow = ResourceManager.arrow;
 	}
 	
-	public void render(Graphics g, GameContainer container) throws SlickException{
+	@Override
+	public void render(GameContainer container, Graphics g) throws SlickException{
 		int cellWidth = manager.getMap().getTileWidth();
 		int cellHeight = manager.getMap().getTileHeight();
 		if(manager.getSelectedUnit() != null)

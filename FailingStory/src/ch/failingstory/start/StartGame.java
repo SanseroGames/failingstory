@@ -1,14 +1,17 @@
 package ch.failingstory.start;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ch.failingstory.IComponent;
 import ch.failingstory.MapManager;
 import ch.failingstory.ResourceManager;
-import ch.failingstory.graphic.MapScreen;
 import ch.failingstory.graphic.MapUI;
 import ch.failingstory.input.InputComponent;
 import ch.failingstory.simulation.SimulationComponent;
@@ -25,10 +28,6 @@ public class StartGame extends BasicGame {
 	private MapManager manager;
 	
 	/**
-	 * The Component that renders the Map
-	 */
-	private MapScreen mapScreen;
-	/**
 	 * Renders the UI that is use for playing the map
 	 */
 	private MapUI mapUI;
@@ -41,7 +40,9 @@ public class StartGame extends BasicGame {
 	 * Component that simulates the game
 	 */
 	private SimulationComponent simulation;
-
+	
+	private List<IComponent> components = new ArrayList<IComponent>();
+	
 	public StartGame(String name) throws SlickException{
 		super(name);
 		container = new AppGameContainer(this);
@@ -51,26 +52,31 @@ public class StartGame extends BasicGame {
 	}
 
 	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
-		mapScreen.render(container, g);
-		mapUI.render(container, g);
-	}
-
-	@Override
 	public void init(GameContainer container) throws SlickException {
 		ResourceManager.initialize();
+		
 		input = new InputComponent(container);
+		components.add(input);
+		
 		manager = new MapManager(".\\res\\test.map");
-		simulation = new SimulationComponent(manager);
-		mapScreen = new MapScreen(manager);
-		mapUI = new MapUI(input, manager);
+		
+		simulation = new SimulationComponent(manager, input);
+		components.add(simulation);
+				
+		mapUI = new MapUI(manager);
+		components.add(mapUI);
 	}
 
 	@Override
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		for(IComponent c : components)
+			c.render(container, g);
+	}
+	
+	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		mapUI.update(container, delta);
-		simulation.update(container, delta);
-		input.update(container, delta);
+		for(IComponent c : components)
+			c.update(container, delta);
 	}
 	
 	/**

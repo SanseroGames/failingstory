@@ -8,7 +8,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-public abstract class GameMap extends TiledMap implements TileBasedMap {
+public class GameMap extends TiledMap implements TileBasedMap {
 	
 	private ArrayList<IUnit> units;
 
@@ -27,14 +27,21 @@ public abstract class GameMap extends TiledMap implements TileBasedMap {
 		return super.getHeight();
 	}
 
+	//Pathfinding
 	@Override
-	public abstract void pathFinderVisited(int x, int y);
+	public void pathFinderVisited(int x, int y) {
+		
+	}
 
 	@Override
-	public abstract boolean blocked(PathFindingContext context, int tx, int ty);
+	public boolean blocked(PathFindingContext context, int tx, int ty) {
+		return false;
+	}
 
 	@Override
-	public abstract float getCost(PathFindingContext context, int tx, int ty);
+	public float getCost(PathFindingContext context, int tx, int ty) {
+		return 1;
+	}
 	
 	//Units
 	

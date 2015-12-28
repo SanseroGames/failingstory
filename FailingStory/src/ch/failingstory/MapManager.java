@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import ch.failingstory.data.TestMap;
 import ch.failingstory.simulation.*;
 
 /**
@@ -16,16 +15,32 @@ import ch.failingstory.simulation.*;
  */
 public class MapManager {
 	
+	/**
+	 * The current Map the User is playing on
+	 */
 	private GameMap map;
+	/**
+	 * The currently selected Unit
+	 */
 	private Unit selectedUnit;
+	/**
+	 * X-Coordinate of the Cursor
+	 */
 	private int cursorX;
+	/**
+	 * Y-Coordinate of the Cursor
+	 */
 	private int cursorY;
+	/**
+	 * Contains the Coordinate for the Arrow the user uses to move the Units. <br>
+	 * It's null, if no Unit is selected and empty if there's no way from the Unit to the Cursor
+	 */
 	private ArrayList<Index2> cursorPath;
 
 	public MapManager(String path) throws SlickException{
 		//lade Map-Pfad
 		String mapPath = ".\\res\\test.tmx";
-		map = new TestMap(mapPath);
+		map = new GameMap(mapPath);
 		//lade Starteinheiten
 		map.addUnit(new TestUnit(5,5,"Test1",3,1,0));
 		map.addUnit(new TestUnit(16,4,"Wurst",6,3,3));
@@ -59,7 +74,12 @@ public class MapManager {
 //	public ICellDefinition getCellAt(int x, int y){
 //		return cells[map.getWidth() * y + x];
 //	}
-	
+	/**
+	 * Returns the Unit located at the given Position. Returns null if there isn't any
+	 * @param x X-Coordinate of the Unit
+	 * @param y Y-Coordinate of the Unit
+	 * @return The Unit or null
+	 */
 	public IUnit getUnitAt(int x, int y){
 		for(IUnit unit:map.getUnits()){
 			if(unit.getX() == x && unit.getY() == y)

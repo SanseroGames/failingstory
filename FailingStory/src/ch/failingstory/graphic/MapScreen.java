@@ -6,12 +6,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import ch.failingstory.IDrawableComponent;
+import ch.failingstory.DrawableComponent;
 import ch.failingstory.IUnit;
 import ch.failingstory.MapManager;
 import ch.failingstory.ResourceManager;
 
-public class MapScreen implements IDrawableComponent{
+public class MapScreen extends DrawableComponent{
 
 	private MapManager manager;
 	private Image grid;
