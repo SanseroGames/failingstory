@@ -2,7 +2,9 @@ package ch.failingstory.input;
 
 import org.newdawn.slick.GameContainer;
 
-public class InputComponent {
+import ch.failingstory.GameComponent;
+
+public class InputComponent extends GameComponent{
 	
 	private MapMouseListener mouse;
 	private MapKeyListener keyboard;
@@ -15,6 +17,7 @@ public class InputComponent {
 	
 	private InputTrigger interact = new InputTrigger();
 	private InputTrigger back = new InputTrigger();
+	private RepeatedTrigger test = new RepeatedTrigger();
 //	private InputTrigger zoomIn = new InputTrigger();
 //	private InputTrigger zoomOut = new InputTrigger();
 	
@@ -35,6 +38,7 @@ public class InputComponent {
 		
 		interact.setState(keyboard.isInteractPressed());
 		back.setState(keyboard.isBackPressed());
+		test.setState(keyboard.isTestPressed(),delta);
 	}
 	
 	public boolean isLeftPressed(){
@@ -59,6 +63,10 @@ public class InputComponent {
 	
 	public boolean isBackPressed(){
 		return back.getState();
+	}
+	
+	public boolean isTestPressed(){
+		return test.getState();
 	}
 	
 	public boolean isMenuPressed(){

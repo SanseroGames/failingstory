@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
  * @author SanseroGames
  *
  */
-public interface IDrawableComponent{
+public abstract class DrawableComponent implements IComponent{
 	
 	/**
 	 * Method to render the Drawable Component
@@ -17,5 +17,12 @@ public interface IDrawableComponent{
 	 * @param g The Graphics to render to
 	 * @throws SlickException 
 	 */
-	void render(GameContainer container, Graphics g) throws SlickException;
+	@Override
+	public abstract void render(GameContainer container, Graphics g) throws SlickException;
+	
+	@Override
+	public void update(GameContainer container, int delta){
+		
+	}
+	
 }

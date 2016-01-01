@@ -1,18 +1,19 @@
 package ch.failingstory.graphic;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.util.pathfinding.AStarPathFinder;
-import org.newdawn.slick.util.pathfinding.Path;
-import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-import ch.failingstory.CursorMover;
+import ch.failingstory.DrawableComponent;
+import ch.failingstory.Index2;
 import ch.failingstory.MapManager;
+import ch.failingstory.ResourceManager;
 
-public class CursorRenderer {
+public class CursorRenderer extends DrawableComponent{
 	
 	private MapManager manager;
 	private Animation cursor;
@@ -21,18 +22,13 @@ public class CursorRenderer {
 	public CursorRenderer(MapManager manager) throws SlickException{
 		this.manager = manager;
 		
-		cursor = new Animation(new Image[] { new Image(".\\res\\cursor1.png"), new Image(".\\res\\cursor2.png") },
-				new int[] { 1000, 400 });
+		cursor = ResourceManager.cursor;
 		
-		arrow = new Image[] { new Image(".\\res\\arrow_left_right.png"), new Image(".\\res\\arrow_top_bottom.png"),
-				new Image(".\\res\\arrow_left_bottom.png"), new Image(".\\res\\arrow_left_top.png"),
-				new Image(".\\res\\arrow_right_top.png"), new Image(".\\res\\arrow_right_bottom.png"),
-				new Image(".\\res\\arrow_left_right_head.png"), new Image(".\\res\\arrow_right_left_head.png"),
-				new Image(".\\res\\arrow_top_bottom_head.png"), new Image(".\\res\\arrow_bottom_top_head.png") };
-
+		arrow = ResourceManager.arrow;
 	}
 	
-	public void render(Graphics g, GameContainer container) throws SlickException{
+	@Override
+	public void render(GameContainer container, Graphics g) throws SlickException{
 		int cellWidth = manager.getMap().getTileWidth();
 		int cellHeight = manager.getMap().getTileHeight();
 		if(manager.getSelectedUnit() != null)
@@ -48,40 +44,38 @@ public class CursorRenderer {
 	
 	
 	private void drawArrowToCursor(Graphics g, int cellWidth, int cellHeight) {
-		AStarPathFinder find = new AStarPathFinder((TileBasedMap) manager.getMap(),
-				manager.getSelectedUnit().getWalkRange(), false);
-		Path p = find.findPath(new CursorMover(), manager.getSelectedUnit().getX(), manager.getSelectedUnit().getY(),
-				manager.getCursorX(), manager.getCursorY());
-		if (p != null) {
-			for (int i = 0; i < p.getLength(); i++) {
-				if (i == p.getLength() - 1) {
-					if (p.getX(i - 1) < p.getX(i))
-						arrow[6].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-					if (p.getX(i - 1) > p.getX(i))
-						arrow[7].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-					if (p.getY(i - 1) < p.getY(i))
-						arrow[8].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-					if (p.getY(i - 1) > p.getY(i))
-						arrow[9].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
+		ArrayList<Index2> p = manager.getCursorPath();
+		
+		if (p != null && p.size() > 1) {
+			for (int i = 0; i < p.size(); i++) {
+				if (i == p.size() - 1) {
+					if (p.get(i - 1).X < p.get(i).X)
+						arrow[6].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+					if (p.get(i - 1).X > p.get(i).X)
+						arrow[7].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+					if (p.get(i - 1).Y < p.get(i).Y)
+						arrow[8].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+					if (p.get(i - 1).Y > p.get(i).Y)
+						arrow[9].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
 				} else if (i > 0) {
-					if (i + 1 < p.getLength() && (p.getX(i) != p.getX(i + 1) || p.getY(i) != p.getY(i + 1))) {
-						if (((p.getX(i) < p.getX(i + 1) || p.getX(i) < p.getX(i - 1))
-								&& (p.getY(i) < p.getY(i + 1) || p.getY(i) < p.getY(i - 1))))
-							arrow[5].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-						else if (((p.getX(i) < p.getX(i + 1) || p.getX(i) < p.getX(i - 1))
-								&& (p.getY(i) > p.getY(i + 1) || p.getY(i) > p.getY(i - 1))))
-							arrow[4].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-						else if (((p.getX(i) > p.getX(i + 1) || p.getX(i) > p.getX(i - 1))
-								&& (p.getY(i) > p.getY(i + 1) || p.getY(i) > p.getY(i - 1))))
-							arrow[3].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
-						else if (((p.getX(i) > p.getX(i + 1) || p.getX(i) > p.getX(i - 1))
-								&& (p.getY(i) < p.getY(i + 1) || p.getY(i) < p.getY(i - 1))))
-							arrow[2].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
+					if (i + 1 < p.size() && (p.get(i).X != p.get(i + 1).X || p.get(i).Y != p.get(i + 1).Y)) {
+						if (((p.get(i).X < p.get(i + 1).X || p.get(i).X < p.get(i - 1).X)
+								&& (p.get(i).Y < p.get(i + 1).Y || p.get(i).Y < p.get(i - 1).Y)))
+							arrow[5].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+						else if (((p.get(i).X < p.get(i + 1).X || p.get(i).X < p.get(i - 1).X)
+								&& (p.get(i).Y > p.get(i + 1).Y || p.get(i).Y > p.get(i - 1).Y)))
+							arrow[4].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+						else if (((p.get(i).X > p.get(i + 1).X || p.get(i).X > p.get(i - 1).X)
+								&& (p.get(i).Y > p.get(i + 1).Y || p.get(i).Y > p.get(i - 1).Y)))
+							arrow[3].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
+						else if (((p.get(i).X > p.get(i + 1).X || p.get(i).X > p.get(i - 1).X)
+								&& (p.get(i).Y < p.get(i + 1).Y || p.get(i).Y < p.get(i - 1).Y)))
+							arrow[2].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
 						else {
-							if (p.getX(i) == p.getX(i - 1))
-								arrow[1].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
+							if (p.get(i).X == p.get(i - 1).X)
+								arrow[1].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
 							else
-								arrow[0].draw((p.getX(i)) * cellWidth, p.getY(i) * cellHeight, cellWidth, cellHeight);
+								arrow[0].draw((p.get(i).X) * cellWidth, p.get(i).Y * cellHeight, cellWidth, cellHeight);
 						}
 					}
 				}
