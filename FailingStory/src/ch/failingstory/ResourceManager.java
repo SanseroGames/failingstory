@@ -14,7 +14,7 @@ public final class ResourceManager {
 	/**
 	 * Animation used to display the Range a Unit can walk or attack
 	 */
-	public static Animation markedField;
+	public static Image markedField;
 	/**
 	 * Animation for the Cursor
 	 */
@@ -39,7 +39,7 @@ public final class ResourceManager {
 	 */
 	public static void initialize(){
 		try {
-			markedField = new Animation(new Image[] { new Image(".\\res\\selectedfield.png") }, 100);
+			markedField = new Image(".\\res\\selectedfield.png");
 			cursor = new Animation(new Image[] { new Image(".\\res\\cursor1.png"), new Image(".\\res\\cursor2.png") },
 					new int[] { 1000, 400 });
 			arrow = new Image[] { new Image(".\\res\\arrow_left_right.png"), new Image(".\\res\\arrow_top_bottom.png"),

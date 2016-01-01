@@ -7,7 +7,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.failingstory.DrawableComponent;
-import ch.failingstory.IUnit;
 import ch.failingstory.MapManager;
 import ch.failingstory.ResourceManager;
 
@@ -47,12 +46,5 @@ public class MapScreen extends DrawableComponent{
 		manager.getMap().render(0, 0);
 		g.drawImage(grid, 0, 0, manager.getMap().getWidth() * cellWidth, manager.getMap().getHeight() * cellHeight, 0,
 				0, grid.getWidth(), grid.getHeight(), new Color(0, 0, 0, ResourceManager.gridBlend));
-
-		// Draw Units
-		for (IUnit unit : manager.getUnits()) {
-			if (unit != null)
-				unit.getAnimation().draw(((int) unit.getX()) * cellWidth, ((int) unit.getY()) * cellHeight, cellWidth,
-						cellHeight);
-		}
 	}
 }
