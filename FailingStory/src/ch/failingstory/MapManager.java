@@ -42,9 +42,9 @@ public class MapManager {
 		String mapPath = ".\\res\\test.tmx";
 		map = new GameMap(mapPath);
 		//lade Starteinheiten
-		map.addUnit(new TestUnit(5,5,"Test1",3,1,0));
-		map.addUnit(new TestUnit(16,4,"Wurst",6,3,3));
-		map.addUnit(new TestUnit(20,16,"Spassvogel",12,5,2));
+		map.addUnit(new TestUnit(5,5,"Test1", 3, 1, 0, 2, 3, 10));
+		map.addUnit(new TestUnit(16,4,"Wurst", 6, 3, 3, 3, 2, 11));
+		map.addUnit(new TestUnit(20,16,"Spassvogel", 12, 5, 2, 3, 1, 20));
 		cursorX = map.getWidth() / 2;
 		cursorY = map.getHeight() / 2;
 	}
@@ -136,6 +136,10 @@ public class MapManager {
 		}else{
 			cursorY = newcur;
 		}	
+	}
+	
+	public void deleteUnit(Unit u){
+		map.removeUnit(u);
 	}
 	
 	public void setSelectedUnit(Unit newUnit){

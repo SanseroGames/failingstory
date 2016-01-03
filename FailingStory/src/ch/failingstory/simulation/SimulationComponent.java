@@ -99,8 +99,22 @@ public class SimulationComponent extends GameComponent{
 			Unit u = (Unit) manager.getUnitAt(manager.getCursorX(), manager.getCursorY());
 			if (u == selUnit && u != null) {
 					clearSelectedUnit();
-			} else if(u != null){
+			} else if(u != null && manager.getSelectedUnit() == null){
 				manager.setSelectedUnit(u);
+			}
+			// Attack
+			else if (u != null && u != selUnit) {
+				if (u.getHP() <= selUnit.getStrength()) {
+					u.changeHPBy(- (u.getHP()));
+					System.out.println("Unit " + u.getName() + " lost all HP by Unit " + selUnit.getName() + "!");
+					manager.deleteUnit(u);
+					System.out.println("Unit " + u.getName() + " died!");
+				}
+				else if (u.getHP() > selUnit.getStrength()) {
+					u.changeHPBy(-(selUnit.getStrength()));
+					System.out.println("Unit " + u.getName() + " lost " + selUnit.getStrength() + " HP by Unit " + selUnit.getName() + "!");
+					System.out.println("Unit " + u.getName() + " has " + u.getHP() + " left!");
+				}
 			}
 			else{
 				if(selUnit != null && Math.abs(manager.getCursorX()-selUnit.getX())+Math.abs(manager.getCursorY()-selUnit.getY()) <= selUnit.getWalkRange()){

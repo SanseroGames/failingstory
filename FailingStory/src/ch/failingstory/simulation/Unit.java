@@ -11,6 +11,8 @@ public abstract class Unit implements IUnit {
 	private int y;
 	private UnitStats stats;
 	private int hp;
+	private int strength;
+	private int defense;
 	private int walkRange;
 	private int minAttackRange;
 	private int maxAttackRange;
@@ -53,6 +55,17 @@ public abstract class Unit implements IUnit {
 	@Override
 	public IFraction getFraction() {
 		return fraction;
+	}
+	
+	@Override
+	public int getStrength() {
+		return strength;
+	}
+
+	
+	@Override
+	public int getDefense() {
+		return defense;
 	}
 
 	@Override

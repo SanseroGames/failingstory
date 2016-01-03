@@ -50,6 +50,11 @@ public class GameMap extends TiledMap implements TileBasedMap {
 			units.add(unit);
 	}
 	
+	public void removeUnit(IUnit unit){
+		if(unit != null)
+			units.remove(unit);
+	}
+	
 	public List<IUnit> getUnits(){
 		return units;
 	}

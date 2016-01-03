@@ -74,6 +74,19 @@ public interface IUnit {
 	 * 
 	 * @return
 	 */
+	
+	int getStrength();
+	/**
+	 * 
+	 * @return
+	 */
+
+	int getDefense();
+	/**
+	 * 
+	 * @return
+	*/
+	
 	int getMinAttackRange();
 
 	/**
