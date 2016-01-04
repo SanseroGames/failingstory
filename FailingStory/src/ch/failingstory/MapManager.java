@@ -36,6 +36,10 @@ public class MapManager {
 	 * It's null, if no Unit is selected and empty if there's no way from the Unit to the Cursor
 	 */
 	private ArrayList<Index2> cursorPath;
+	
+	private boolean movedSelectedUnit;
+	private Index2 selectedPosition;
+	private ArrayList<Index2> cursorPathBuffer;
 
 	public MapManager(String path) throws SlickException{
 		//lade Map-Pfad
@@ -143,11 +147,19 @@ public class MapManager {
 	}
 	
 	public void setSelectedUnit(Unit newUnit){
+		if(newUnit == null){
+			movedSelectedUnit = false;
+			cursorPathBuffer = null;
+		}
 		selectedUnit = newUnit;
 	}
 	
 	public Unit getSelectedUnit(){
 		return selectedUnit;
+	}
+	
+	public boolean isSelectedUnitMoved(){
+		return movedSelectedUnit;
 	}
 
 	public ArrayList<Index2> getCursorPath() {
@@ -156,5 +168,24 @@ public class MapManager {
 
 	public void setCursorPath(ArrayList<Index2> cursorPath) {
 		this.cursorPath = cursorPath;
+	}
+
+	public Index2 getSelectedPosition(){
+		return selectedPosition;
+	}
+	
+	public void setSelectPosition(Index2 index) {
+		if(index != null && index.X >=0 && index.Y>=0 && index.X < map.getWidth() && index.Y < map.getHeight()){
+			selectedPosition = index;
+			movedSelectedUnit = true;
+			cursorPathBuffer = cursorPath;
+			cursorPath = null;
+		}else{
+			cursorX = selectedPosition.X;
+			cursorY = selectedPosition.Y;
+			selectedPosition = null;
+			movedSelectedUnit = false;
+			cursorPath = cursorPathBuffer;
+		}
 	}
 }

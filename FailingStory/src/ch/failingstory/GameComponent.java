@@ -12,9 +12,7 @@ import org.newdawn.slick.SlickException;
 public abstract class GameComponent implements IComponent{
 	
 	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException{
-		
-	}
+	public final void render(GameContainer container, Graphics g) throws SlickException{ }
 	
 	/**
 	 * Method to update

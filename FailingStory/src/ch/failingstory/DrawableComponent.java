@@ -21,8 +21,6 @@ public abstract class DrawableComponent implements IComponent{
 	public abstract void render(GameContainer container, Graphics g) throws SlickException;
 	
 	@Override
-	public void update(GameContainer container, int delta){
-		
-	}
+	public final void update(GameContainer container, int delta){ }
 	
 }

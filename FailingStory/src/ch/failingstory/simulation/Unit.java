@@ -4,15 +4,13 @@ import org.newdawn.slick.Animation;
 
 import ch.failingstory.*;
 
-public abstract class Unit implements IUnit {
+public abstract class Unit implements IUnit{
 
 	private IFraction fraction;
 	private int x;
 	private int y;
 	private UnitStats stats;
 	private int hp;
-	private int strength;
-	private int defense;
 	private int walkRange;
 	private int minAttackRange;
 	private int maxAttackRange;
@@ -20,10 +18,10 @@ public abstract class Unit implements IUnit {
 
 	//Temp Constructor for Debunging
 	public Unit(int walk, int max, int min){
-		hp = 10;
 		walkRange = walk;
 		minAttackRange = min;
 		maxAttackRange = max;
+		stats = new UnitStats();
 	}
 	
 	@Override
@@ -33,69 +31,76 @@ public abstract class Unit implements IUnit {
 	public abstract Animation getAnimation();
 	
 	@Override
-	public UnitStats getStats() {
+	public final UnitStats getStats() {
 		return stats;
+	}
+	
+	protected final void setStats(UnitStats stats){
+		this.stats = stats;
 	}
 
 	@Override
-	public int getWalkRange() {
+	public final int getWalkRange() {
 		return walkRange;
 	}
 
 	@Override
-	public int getMaxAttackRange() {
+	public final int getMaxAttackRange() {
 		return maxAttackRange;
 	}
 	
 	@Override
-	public int getMinAttackRange() {
+	public final int getMinAttackRange() {
 		return minAttackRange;
 	}
 
 	@Override
-	public IFraction getFraction() {
+	public final IFraction getFraction() {
 		return fraction;
 	}
 	
 	@Override
-	public int getStrength() {
-		return strength;
-	}
-
-	
-	@Override
-	public int getDefense() {
-		return defense;
+	public final int getStrength() {
+		return stats.Attack;
 	}
 
 	@Override
-	public boolean hasFinished() {
+	public final int getDefense() {
+		return stats.Defense;
+	}
+
+	@Override
+	public final boolean hasFinished() {
 		return finished;
 	}
 
 	@Override
-	public int getHP() {
+	public final int getHP() {
 		return hp;
 	}
 
 	@Override
-	public int getX() {
+	public final int getX() {
 		return x;
 	}
 	
 	@Override
-	public int getY() {
+	public final int getY() {
 		return y;
 	}
 
 	//Setter Methods
 	
-	public void setPosition(int x, int y) {
+	public final void setPosition(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void changeHPBy(int value) {
-		hp += value;
+	public final void changeHPBy(int value) {
+		if(hp + value >= stats.MaxHP){
+			hp = stats.MaxHP;
+		}else{
+			hp += value;
+		}
 	}
 }

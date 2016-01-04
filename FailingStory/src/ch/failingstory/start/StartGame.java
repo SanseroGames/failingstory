@@ -14,7 +14,7 @@ import ch.failingstory.MapManager;
 import ch.failingstory.ResourceManager;
 import ch.failingstory.graphic.MapUI;
 import ch.failingstory.input.InputComponent;
-import ch.failingstory.simulation.SimulationComponent;
+import ch.failingstory.simulation.MapSimulator;
 
 public class StartGame extends BasicGame {
 
@@ -39,7 +39,7 @@ public class StartGame extends BasicGame {
 	/**
 	 * Component that simulates the game
 	 */
-	private SimulationComponent simulation;
+	private MapSimulator simulation;
 	
 	private List<IComponent> components = new ArrayList<IComponent>();
 	
@@ -60,7 +60,7 @@ public class StartGame extends BasicGame {
 		
 		manager = new MapManager(".\\res\\test.map");
 		
-		simulation = new SimulationComponent(manager, input);
+		simulation = new MapSimulator(manager, input);
 		components.add(simulation);
 				
 		mapUI = new MapUI(manager);

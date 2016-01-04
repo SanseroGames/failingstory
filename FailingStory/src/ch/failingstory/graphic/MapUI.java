@@ -17,39 +17,64 @@ public class MapUI extends DrawableComponent {
 	private Image selectedField;
 	private CursorRenderer cursor;
 	private MapScreen mapScreen;
-	
-	public MapUI(MapManager manager) throws SlickException{
+
+	public MapUI(MapManager manager) throws SlickException {
 		this.manager = manager;
-		
+
 		selectedField = ResourceManager.markedField;
-		
+
+		// Setting up Screens
 		mapScreen = new MapScreen(manager);
 		cursor = new CursorRenderer(manager);
 	}
-	
+
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		// Draw selection
 		// TODO: path finder to check if cell is blocked
-		mapScreen.render(container,g);
+		mapScreen.render(container, g);
 		if (manager.getSelectedUnit() != null) {
 			IUnit u = manager.getSelectedUnit();
-			drawRange(g,u.getX(),u.getY(),u.getMinAttackRange() + u.getWalkRange(),u.getMaxAttackRange() + u.getWalkRange(),new Color(238f / 255f, 69f / 255f, 49f / 255f, 0.8f));
-			drawRange(g,u.getX(),u.getY(),0,u.getWalkRange(),new Color(36f / 255f, 126f / 255f, 248f / 255F, 0.8f));
-		}else{
-			
+			if (!manager.isSelectedUnitMoved()) {
+				drawRange(g, u.getX(), u.getY(), u.getMinAttackRange() + u.getWalkRange(),
+						u.getMaxAttackRange() + u.getWalkRange(), new Color(238f / 255f, 69f / 255f, 49f / 255f, 0.8f));
+				drawRange(g, u.getX(), u.getY(), 0, u.getWalkRange(),
+						new Color(36f / 255f, 126f / 255f, 248f / 255F, 0.8f));
+			} else {
+				drawRange(g, manager.getSelectedPosition().X, manager.getSelectedPosition().Y, u.getMinAttackRange(),
+						u.getMaxAttackRange(), new Color(238f / 255f, 69f / 255f, 49f / 255f, 0.8f));
+			}
+		} else {
+
 		}
 		// Draw Units
 		for (IUnit unit : manager.getUnits()) {
-			if (unit != null)
-				unit.getAnimation().draw(((int) unit.getX()) * manager.getMap().getTileWidth(), ((int) unit.getY()) * manager.getMap().getTileHeight(),
-						manager.getMap().getTileWidth(), manager.getMap().getTileHeight());
+			if (unit != null && !(manager.getSelectedUnit() != null && unit == manager.getSelectedUnit()))
+				unit.getAnimation().draw(((int) unit.getX()) * manager.getMap().getTileWidth(),
+						((int) unit.getY()) * manager.getMap().getTileHeight(), manager.getMap().getTileWidth(),
+						manager.getMap().getTileHeight());
 		}
-		cursor.render(container,g);
+
+		if (manager.getSelectedUnit() != null) {
+			if (manager.isSelectedUnitMoved()) {
+				manager.getSelectedUnit().getAnimation().draw(
+						((int) manager.getSelectedPosition().X) * manager.getMap().getTileWidth(),
+						((int) manager.getSelectedPosition().Y) * manager.getMap().getTileHeight(),
+						manager.getMap().getTileWidth(), manager.getMap().getTileHeight());
+			} else {
+				manager.getSelectedUnit().getAnimation().draw(
+						((int) manager.getSelectedUnit().getX()) * manager.getMap().getTileWidth(),
+						((int) manager.getSelectedUnit().getY()) * manager.getMap().getTileHeight(),
+						manager.getMap().getTileWidth(), manager.getMap().getTileHeight());
+			}
+		}
+
+		cursor.render(container, g);
 	}
-	
+
 	/**
-	 * Renders 
+	 * Renders
+	 * 
 	 * @param g
 	 * @param unitX
 	 * @param unitY
@@ -58,37 +83,40 @@ public class MapUI extends DrawableComponent {
 	 * @param minAttack
 	 * @throws SlickException
 	 */
-	private void drawRange(Graphics g, int unitX, int unitY, int minRange, int maxRange, Color col) throws SlickException{		
+	private void drawRange(Graphics g, int unitX, int unitY, int minRange, int maxRange, Color col)
+			throws SlickException {
 		int cellWidth = manager.getMap().getTileWidth();
 		int cellHeight = manager.getMap().getTileHeight();
 
-		
-		for (int x = -maxRange; x <= maxRange; x++){
-			for (int y = -maxRange; y <= maxRange; y++){
-				if(Math.abs(x) + Math.abs(y) <= maxRange &&
-						Math.abs(x) + Math.abs(y) >= minRange &&
-						(x != 0 || y != 0)){
-					g.drawImage(selectedField,(((unitX - (maxRange)) + (maxRange) + x) * cellWidth) ,
-						((unitY - (maxRange)) + (maxRange) + y) * cellHeight , col);
+		for (int x = -maxRange; x <= maxRange; x++) {
+			for (int y = -maxRange; y <= maxRange; y++) {
+				if (Math.abs(x) + Math.abs(y) <= maxRange && Math.abs(x) + Math.abs(y) >= minRange
+						&& (x != 0 || y != 0)) {
+					g.drawImage(selectedField, (((unitX - (maxRange)) + (maxRange) + x) * cellWidth),
+							((unitY - (maxRange)) + (maxRange) + y) * cellHeight, col);
 				}
 			}
 		}
-		
-//		
-//		for (int x = -(wr + xar); x <= wr + xar; x++) {
-//			for (int y = -(wr + xar - Math.abs(x)); y <= (wr + xar - Math.abs(x)); y++) {
-//				if (Math.abs(x) + Math.abs(y) > wr && Math.abs(x) + Math.abs(y) >= wr + nar) {
-//					g.drawImage(selectedField,(((ux - (wr + xar)) + (wr + xar) + x) * cellWidth) ,
-//							((uy - (wr + xar)) + (wr + xar) + y) * cellHeight ,
-//							new Color(238f / 255f, 69f / 255f, 49f / 255f, 0.8f));
-//				} else if (Math.abs(x) + Math.abs(y) <= wr) {
-//					if (x != 0 || y != 0) {
-//						g.drawImage(selectedField,(((ux - (wr + xar)) + (wr + xar) + x) * cellWidth) ,
-//								((uy - (wr + xar)) + (wr + xar) + y) * cellHeight ,
-//								new Color(36f / 255f, 126f / 255f, 248f / 255F, 0.8f));
-//					}
-//				}
-//			}
-//		}
+
+		//
+		// for (int x = -(wr + xar); x <= wr + xar; x++) {
+		// for (int y = -(wr + xar - Math.abs(x)); y <= (wr + xar -
+		// Math.abs(x)); y++) {
+		// if (Math.abs(x) + Math.abs(y) > wr && Math.abs(x) + Math.abs(y) >= wr
+		// + nar) {
+		// g.drawImage(selectedField,(((ux - (wr + xar)) + (wr + xar) + x) *
+		// cellWidth) ,
+		// ((uy - (wr + xar)) + (wr + xar) + y) * cellHeight ,
+		// new Color(238f / 255f, 69f / 255f, 49f / 255f, 0.8f));
+		// } else if (Math.abs(x) + Math.abs(y) <= wr) {
+		// if (x != 0 || y != 0) {
+		// g.drawImage(selectedField,(((ux - (wr + xar)) + (wr + xar) + x) *
+		// cellWidth) ,
+		// ((uy - (wr + xar)) + (wr + xar) + y) * cellHeight ,
+		// new Color(36f / 255f, 126f / 255f, 248f / 255F, 0.8f));
+		// }
+		// }
+		// }
+		// }
 	}
 }

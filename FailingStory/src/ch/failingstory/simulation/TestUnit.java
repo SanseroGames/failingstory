@@ -2,53 +2,29 @@ package ch.failingstory.simulation;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
+import ch.failingstory.UnitStats;
 
 public class TestUnit extends Unit{
 
 	private Animation ani;
 	private String nam;
-	private int str;
-	private int def;
-//	private int hp;
 	
-	public TestUnit(int x, int y, String name, int walk, int max, int min, int strength, int defense, int healthpoints){
-		//Debuging constructor Call
+	public TestUnit(int x, int y, String name, int walk, int max, int min, int strength, int defense, int hp) throws SlickException{
 		super(walk,max,min);
 
 		setPosition(x,y);
-		changeHPBy(healthpoints);
-		//hp = healthpoints;
-		str = strength;
-		def = defense;
 		nam = name;
-		
-		try {
-			ani = new Animation(new Image[] {new Image(".\\res\\testunit.png"), new Image(".\\res\\testunit1.png")},1000,true);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.setStats(new UnitStats(hp,strength,defense));
+		changeHPBy(hp);
+		ani = new Animation(new Image[] {new Image(".\\res\\testunit.png"), new Image(".\\res\\testunit1.png")},1000,true);
 	}
 	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return nam;
-	}
-	
-//	@Override
-//	public int getHP() {
-//		return hp;
-//	}
-	
-	@Override
-	public int getStrength() {
-		return str;
-	}
-	
-	@Override
-	public int getDefense() {
-		return def;
 	}
 
 	@Override
